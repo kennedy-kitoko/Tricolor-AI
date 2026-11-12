@@ -45,8 +45,10 @@ class Demo(ctk.CTk):
         self.wait = {d: 0.0 for d in DIRECTIONS}
         self.direction = ctk.StringVar(value="N")
         self.role = ctk.StringVar(value="in")
-        self.weights = ctk.StringVar(value="yolo11n.pt")
+        self.weights = ctk.StringVar(value="yolo26n.pt")
         self.status = ctk.StringVar(value="Ouvrir une vidéo et dessiner les zones.")
+        self.corner_annotators = {d: sv.BoxCornerAnnotator(color=sv.Color.from_hex(COLORS[d]), thickness=2) for d in DIRECTIONS}
+        self.unknown_corner_annotator = sv.BoxCornerAnnotator(color=sv.Color.from_hex("#CBD5E1"), thickness=2)
         self.build_ui()
         self.protocol("WM_DELETE_WINDOW", self.close)
 
@@ -203,7 +205,7 @@ class Demo(ctk.CTk):
             messagebox.showwarning("Zones", "Dessiner 4 entrées et 4 sorties : "+", ".join(missing))
             return
         if self.model is None:
-            try: self.model = YOLO(self.weights.get().strip() or "yolo11n.pt")
+            try: self.model = YOLO(self.weights.get().strip() or "yolo26n.pt")
             except Exception as exc:
                 messagebox.showerror("YOLO", str(exc))
                 return
@@ -230,6 +232,8 @@ class Demo(ctk.CTk):
             tracked = self.tracker.update_with_detections(detected)
             self.present = {d: 0 for d in DIRECTIONS}
             waits = {d: [] for d in DIRECTIONS}
+            annotation_indices = {d: [] for d in DIRECTIONS}
+            unknown_indices = []
             if tracked.tracker_id is not None:
                 for i, identifier in enumerate(tracked.tracker_id):
                     tid = int(identifier)
@@ -256,9 +260,23 @@ class Demo(ctk.CTk):
                     for d in here_in:
                         self.present[d] += 1
                         waits[d].append(state["wait"])
-                    color = BGR.get(state["origin"],(200,200,200))
-                    cv2.rectangle(image,(int(x1),int(y1)),(int(x2),int(y2)),color,2)
-                    cv2.putText(image,f"#{tid} {state['origin'] or '?'}",(int(x1),max(14,int(y1)-7)),cv2.FONT_HERSHEY_SIMPLEX,0.55,color,2)
+                    if state["origin"] in DIRECTIONS:
+                        annotation_indices[state["origin"]].append(i)
+                    else:
+                        unknown_indices.append(i)
+                    color = BGR.get(state["origin"], (200, 200, 200))
+                    cv2.putText(image, f"#{tid} {state['origin'] or '?'}", (int(x1), max(14, int(y1)-7)), cv2.FONT_HERSHEY_SIMPLEX, 0.55, color, 2)
+            # Supervision BoxCornerAnnotator : couleur selon la zone d'entrée.
+            for direction in DIRECTIONS:
+                indices = annotation_indices[direction]
+                if indices:
+                    image = self.corner_annotators[direction].annotate(
+                        scene=image, detections=tracked[np.asarray(indices, dtype=int)]
+                    )
+            if unknown_indices:
+                image = self.unknown_corner_annotator.annotate(
+                    scene=image, detections=tracked[np.asarray(unknown_indices, dtype=int)]
+                )
             self.wait = {d:sum(waits[d])/len(waits[d]) if waits[d] else 0.0 for d in DIRECTIONS}
             self.frame = image
             self.dashboard()
