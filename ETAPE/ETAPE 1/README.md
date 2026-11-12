@@ -24,6 +24,39 @@ Les zones sont des polygones calibrés pour **chaque caméra**. Les nombres de v
 
 **Contexte du contrôleur (indispensable, mais non fourni par la caméra) :** `active_phase` et `phase_elapsed_s`. Ce sont des données du feu, nécessaires pour choisir une prochaine phase autorisée dans le respect de son protocole de sécurité. Les durées verte, jaune et tout-rouge sont gérées par ce protocole, pas déduites des pixels.
 
+
+### Illustrations des métriques
+
+Les valeurs représentées sont **fictives** : elles servent uniquement à visualiser chaque indicateur. Les schémas ne constituent ni une détection réelle ni un résultat expérimental.
+
+#### Véhicules par zone (1, 2, 3)
+
+![Véhicules par zone (1, 2, 3)](illustrations/zone_counts.svg)
+
+#### File à l'arrêt
+
+![File à l'arrêt](illustrations/queue_count.svg)
+
+#### Temps d'attente moyen
+
+![Temps d'attente moyen](illustrations/mean_wait_s.svg)
+
+#### Occupation de la voie
+
+![Occupation de la voie](illustrations/occupancy_ratio.svg)
+
+#### Arrivées en 30 secondes
+
+![Arrivées en 30 secondes](illustrations/arrival_count_30s.svg)
+
+#### Phase active
+
+![Phase active](illustrations/active_phase.svg)
+
+#### Temps écoulé de la phase
+
+![Temps écoulé de la phase](illustrations/phase_elapsed_s.svg)
+
 ## B. COMMUNICATION ENTRE INTERSECTIONS — message minimal
 
 À destination des carrefours reliés par une voie :
@@ -41,6 +74,35 @@ Les trois premières données proviennent de l'intersection **amont** ; les suiv
 
 **Important :** le nombre sorti et sa destination peuvent être construits par suivi des véhicules dans des zones d'entrée et de sortie. Le temps d'arrivée demande une estimation du trajet. La capacité libre en aval demande une mesure ou calibration supplémentaire de la longueur utile, des véhicules et de la file : **Supervision ne la fournit pas directement**.
 
+
+### Illustrations des métriques
+
+Les valeurs représentées sont **fictives** : elles servent uniquement à visualiser chaque indicateur. Les schémas ne constituent ni une détection réelle ni un résultat expérimental.
+
+#### Véhicules sortants
+
+![Véhicules sortants](illustrations/outgoing_count_30s.svg)
+
+#### Mouvement de destination
+
+![Mouvement de destination](illustrations/destination_movement_id.svg)
+
+#### Arrivée estimée chez le voisin
+
+![Arrivée estimée chez le voisin](illustrations/estimated_arrival_s.svg)
+
+#### File d'attente en aval
+
+![File d'attente en aval](illustrations/downstream_queue_count.svg)
+
+#### Places libres en aval
+
+![Places libres en aval](illustrations/downstream_available_storage.svg)
+
+#### Horodatage de l'observation
+
+![Horodatage de l'observation](illustrations/observed_at.svg)
+
 ## C. APRÈS LA DÉCISION — évaluer son effet
 
 Conserver aussi l'`action_phase`, la `green_duration_s` et les heures de début/fin de l'action, pour rattacher les mesures à la bonne décision.
@@ -53,6 +115,35 @@ Conserver aussi l'`action_phase`, la `green_duration_s` et les heures de début/
 | `spillback_events` | Nombre d'épisodes où la file atteint l'amont et risque de bloquer l'intersection précédente | événements/fenêtre | Plus bas |
 
 **Comparer avant et après :** utiliser des fenêtres et une demande comparables, mais aussi observer plusieurs décisions consécutives. Les métriques d'attente et de file varient naturellement au cours d'un cycle ; une baisse ponctuelle ne prouve pas que le contrôle est meilleur. Pour attribuer une amélioration au système, comparer également avec des feux fixes et des contrôleurs adaptatifs de référence sur des conditions identiques.
+
+
+### Illustrations des métriques
+
+Les valeurs représentées sont **fictives** : elles servent uniquement à visualiser chaque indicateur. Les schémas ne constituent ni une détection réelle ni un résultat expérimental.
+
+#### Phase effectivement commandée
+
+![Phase effectivement commandée](illustrations/action_phase.svg)
+
+#### Durée verte appliquée
+
+![Durée verte appliquée](illustrations/green_duration_s.svg)
+
+#### Attente moyenne après la décision
+
+![Attente moyenne après la décision](illustrations/mean_wait_s.svg)
+
+#### File moyenne
+
+![File moyenne](illustrations/mean_queue_count.svg)
+
+#### Véhicules servis
+
+![Véhicules servis](illustrations/throughput_count.svg)
+
+#### Remontées de file
+
+![Remontées de file](illustrations/spillback_events.svg)
 
 ## Lien exact avec les quatre exemples Roboflow analysés
 
