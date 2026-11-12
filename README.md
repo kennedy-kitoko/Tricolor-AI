@@ -1,4 +1,4 @@
-![Tricolor AI — Contrôle adaptatif et coordination des feux](assets/tricolor-ai-cover.svg)
+![Tricolor AI — Intelligence artificielle pour la régulation et la coordination de la circulation](assets/a_detailed_polished_infographic_style_poster_for.png)
 
 # Tricolor AI — AI for Adaptive Traffic Control & Citywide Signal Coordination
 
