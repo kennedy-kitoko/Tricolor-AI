@@ -14,7 +14,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Le modèle `yolo11n.pt` peut être téléchargé automatiquement au premier usage. Pour un test totalement hors ligne, renseigner son chemin local dans le champ YOLO.
+La détection utilise **Ultralytics YOLO26 nano (`yolo26n.pt`)** et les véhicules sont dessinés avec **`sv.BoxCornerAnnotator`**, dans la couleur de leur zone d'entrée (N rouge, S vert, E jaune, O bleu). Les véhicules dont l'origine n'est pas encore connue ont des coins gris. Les identifiants restent affichés à côté des boîtes. Le modèle `yolo26n.pt` peut être téléchargé automatiquement au premier usage. Pour un test totalement hors ligne, renseigner son chemin local dans le champ YOLO.
 
 ## Utilisation
 
@@ -27,3 +27,12 @@ Le modèle `yolo11n.pt` peut être téléchargé automatiquement au premier usag
 Les directions doivent être associées **aux voies réelles**, pas à la position haut/bas dans l'image. La mesure `Présents` est instantanée ; la matrice et `Sortis` sont cumulés. **Attente** est une estimation basée sur le déplacement des boîtes en pixels par seconde, pas un temps d'attente calibré ou une mesure de vitesse réelle. Le suivi peut être imparfait en cas d'occlusions. Ne pas connecter cette démo aux feux réels.
 
 Sources : [Roboflow Traffic Analysis](https://github.com/roboflow/supervision/blob/develop/examples/traffic_analysis/ultralytics_example.py) · [CustomTkinter](https://customtkinter.tomschimansky.com/documentation/) · [Supervision](https://supervision.roboflow.com/latest/).
+
+## Annotation des véhicules
+
+```python
+corner_annotator = sv.BoxCornerAnnotator(color=sv.Color.from_hex('#E6194B'), thickness=2)
+annotated_frame = corner_annotator.annotate(scene=image.copy(), detections=detections)
+```
+
+La démo applique cet annotateur séparément à chaque sous-ensemble de véhicules suivis, pour conserver les couleurs N/S/E/O. L'ancienne boîte rectangulaire complète a été retirée. La compatibilité exacte dépend des versions installées de `supervision` et `ultralytics` ; la démo n'a pas encore été validée sur une vidéo réelle.
