@@ -1,0 +1,6 @@
+customtkinter>=5.2,<7
+ultralytics>=8.3,<9
+supervision>=0.25,<1
+opencv-python>=4.8,<5
+numpy>=1.26,<3
+pillow>=10,<13
