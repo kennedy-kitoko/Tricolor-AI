@@ -64,6 +64,16 @@ La recherche examine notamment les files d’attente, la circulation en aval et 
 
 Code : [ProcessLight sur GitHub](https://github.com/wenzhaoabc/processlight).
 
+### CoLLMLight — Coordonner les intersections à l'échelle du réseau
+
+[CoLLMLight: Cooperative Large Language Model Agents for Network-Wide Traffic Signal Control (ICLR 2026)](https://openreview.net/forum?id=KeJqoEVOeY), de **Zirui Yuan, Siqi Lai et Hao Liu**, étudie précisément le problème des carrefours qui prennent leurs décisions indépendamment les uns des autres.
+
+L'idée est de permettre à chaque intersection de tenir compte **de sa propre circulation, des intersections voisines, des liens entre les routes et de l'évolution récente des flux**. Le système produit des indications de coordination entre carrefours, tandis que les décisions immédiates des feux restent rapides. Les auteurs évaluent cette méthode en simulation sur quatre réseaux de circulation issus de villes réelles ; cela ne constitue pas, en soi, la preuve d'un déploiement physique.
+
+**Ce que Tricolor AI en retient :** une décision qui semble bonne pour un carrefour peut être mauvaise pour le suivant. La coordination doit donc prendre en compte les véhicules qui vont arriver, les files déjà présentes en aval et la capacité des voies à recevoir davantage de circulation. Tricolor AI souhaite appliquer ce principe à des **feux classiques comme à des robots de régulation**, avec une perception par caméra et des décisions locales. Le projet ne reprend pas nécessairement les grands modèles de langage employés par CoLLMLight.
+
+Publication : [ICLR 2026](https://openreview.net/forum?id=KeJqoEVOeY) · [Code officiel sur GitHub](https://github.com/usail-hkust/CoLLMLight).
+
 ### Ce que nous retenons de ces recherches
 
 Ces publications montrent la progression de l’intelligence artificielle appliquée aux feux : elle peut tenir compte de davantage d’informations, envisager des conséquences sur les intersections voisines et améliorer ses décisions. Elles confirment aussi que la **coordination est une question centrale**, au-delà de la seule sélection du feu vert.
@@ -138,9 +148,10 @@ Les évaluations devront comparer des feux fixes, des méthodes adaptatives exis
 2. **Federal Highway Administration.** [Adaptive Signal Control FAQs](https://www.fhwa.dot.gov/innovation/everydaycounts/edc-1/asct-faqs.cfm). Contraintes de détection, communication, coût et maintenance.
 3. **Zou et al. (2026).** [Traffic-R1: Reinforced LLMs Bring Human-Like Reasoning to Traffic Signal Control Systems](https://aclanthology.org/2026.acl-long.995/). *ACL 2026*.
 4. **Zhao et al. (2026).** [ProcessLight: Process Supervision for Large Language Model Based Traffic Signal Control](https://aclanthology.org/2026.emnlp-main.1966/). *EMNLP 2026*.
-5. **Rafi et al. (2026).** [Sim2Signal: Sim-to-Real Benchmarks for Traffic Signal Control](https://arxiv.org/abs/2609.01676).
-6. **Kumarasamy et al. (2026).** [Field Implementation and Operational Validation of a Decentralized Graph-Based Multi-Agent Reinforcement Learning Traffic-Signal Controller on a Smart Corridor](https://www.mdpi.com/2073-8994/18/10/1659).
-7. **World Bank (2026).** [Moving People, Creating Jobs: How Better Transport Drives Opportunity](https://www.worldbank.org/en/results/2026/04/01/how-better-transport-drives-opportunity).
+5. **Yuan, Lai et Liu (2026).** [CoLLMLight: Cooperative Large Language Model Agents for Network-Wide Traffic Signal Control](https://openreview.net/forum?id=KeJqoEVOeY). *ICLR 2026*. [Code](https://github.com/usail-hkust/CoLLMLight).
+6. **Rafi et al. (2026).** [Sim2Signal: Sim-to-Real Benchmarks for Traffic Signal Control](https://arxiv.org/abs/2609.01676).
+7. **Kumarasamy et al. (2026).** [Field Implementation and Operational Validation of a Decentralized Graph-Based Multi-Agent Reinforcement Learning Traffic-Signal Controller on a Smart Corridor](https://www.mdpi.com/2073-8994/18/10/1659).
+8. **World Bank (2026).** [Moving People, Creating Jobs: How Better Transport Drives Opportunity](https://www.worldbank.org/en/results/2026/04/01/how-better-transport-drives-opportunity).
 
 ---
 
