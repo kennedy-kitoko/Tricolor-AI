@@ -189,6 +189,19 @@ Les valeurs représentées sont **fictives** : elles servent uniquement à visua
 
 **Pourquoi cette illustration ?** Le système doit observer les différentes directions selon des règles comparables, sans supposer qu'elles reçoivent toutes le même nombre de véhicules ou qu'elles doivent obtenir exactement la même durée de vert. Ici, la **symétrie** signifie une **comparaison équitable et cohérente des mesures** : mêmes unités, mêmes fenêtres temporelles et prise en compte des files et des attentes de chaque mouvement. Une direction très chargée peut nécessiter davantage de temps, tandis qu'une direction peu chargée ne doit pas être abandonnée indéfiniment. **Conséquence pour la décision :** le contrôleur doit rechercher un équilibre entre réduction de la congestion, attente maximale acceptable et sécurité, tout en tenant compte de la capacité des voies en aval. L'équilibre n'est donc **pas** un partage 50/50 du temps vert : c'est une décision proportionnée à la situation réelle.
 
+
+## Démo interactive — CustomTkinter, 4 voies N/S/E/O
+
+Le dossier [`demo_customtkinter/`](demo_customtkinter/) contient une première interface Python pour **dessiner les quatre paires de polygones entrée/sortie**, sélectionner une vidéo, détecter et suivre les véhicules avec YOLO + Supervision ByteTrack, puis consulter sur l'image et dans un tableau de bord : **présents**, **temps d'attente estimé**, **sortis** et **matrice de trajets N/S/E/O**.
+
+```bash
+cd "ETAPE/ETAPE 1/demo_customtkinter"
+pip install -r requirements.txt
+python app.py
+```
+
+C'est une démo de perception, pas un dispositif autorisé à piloter des feux. Les métriques d'attente demandent une calibration sur vidéo réelle.
+
 ## Lien exact avec les quatre exemples Roboflow analysés
 
 | Exemple étudié | Ce qu'il permet réellement | Ce qu'il ne fournit pas directement |
